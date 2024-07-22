@@ -31,11 +31,31 @@ def todo_app():
             case 'edit':
                 task_number = int(input("Enter the number associated with your to-do task: "))
                 task_number = task_number - 1
+
+                with open('todos.txt', 'r') as file:
+                    todo_list = file.readlines()
+
                 new_task = input("Edit your to-do task: ")
-                todo_list[task_number] = new_task.title()
+                todo_list[task_number] = new_task.title() + '\n'
+
+                with open('todos.txt', 'w') as file:
+                    file.writelines(todo_list)
+
             case 'complete':
                 task_number = int(input("Enter the number associated with your completed task: "))
-                todo_list.pop(task_number - 1)
+
+                with open('todos.txt', 'r') as file:
+                    todo_list = file.readlines()
+                index = task_number - 1
+                todo_to_remove = todo_list[index].strip('\n')
+                todo_list.pop(index)
+
+                with open('todos.txt', 'w') as file:
+                    file.writelines(todo_list)
+
+                message = f"Todo '{todo_to_remove}' was completed and removed from the list"
+                print(message)
+
             case 'exit':
                 break
             #  common variable '_' for error handling - defined on the fly
