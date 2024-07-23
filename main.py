@@ -5,7 +5,7 @@ def todo_app():
         user_action = input("Type 'add', 'show', 'edit', 'complete', or 'exit': ")
         user_action = user_action.strip()
 
-        if 'add' in user_action or 'new' in user_action:
+        if 'add' in user_action:
             # use list slicing - this will give us the part after 'add ', l
             todo = user_action[4:]
 
