@@ -1,9 +1,18 @@
 def todo_app():
 
-    def get_todos():
-        with open('todos.txt', 'r') as file_local:  # (second argument 'w' for write, 'r' read)
+
+    def get_todos(filepath="todos.txt"):
+        """ Read a text file and return the list of to-do items. """
+        with open(filepath, 'r') as file_local:  # (second argument 'w' for write, 'r' read)
             todos_local = file_local.readlines()
         return todos_local
+
+
+    def write_todos(todo_parameter, filepath="todos.txt"):
+        """ Write a to-do items list in the text file. """
+        with open(filepath, 'w') as file_local:
+            file_local.writelines(todo_parameter)
+        #no return, we want the None value. This is just a procedure
 
 
     while True:
@@ -19,8 +28,7 @@ def todo_app():
 
             todo_list.append(todo.title() + "\n")
 
-            with open('todos.txt', 'w') as file:
-                file.writelines(todo_list)
+            write_todos(todo_list)
 
         elif user_action.startswith('show'):
 
@@ -45,8 +53,7 @@ def todo_app():
                 new_task = input("Edit your to-do task: ")
                 todo_list[task_number] = new_task.title() + '\n'
 
-                with open('todos.txt', 'w') as file:
-                    file.writelines(todo_list)
+                write_todos(todo_list)
 
             except ValueError:
                 print("Your command is not valid.")
@@ -65,8 +72,7 @@ def todo_app():
                 todo_to_remove = todo_list[index].strip('\n')
                 todo_list.pop(index)
 
-                with open('todos.txt', 'w') as file:
-                    file.writelines(todo_list)
+                write_todos(todo_list)
 
                 message = f"Todo '{todo_to_remove}' was completed and removed from the list"
                 print(message)
