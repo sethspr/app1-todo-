@@ -1,5 +1,11 @@
 def todo_app():
 
+    def get_todos():
+        with open('todos.txt', 'r') as file_local:  # (second argument 'w' for write, 'r' read)
+            todos_local = file_local.readlines()
+        return todos_local
+
+
     while True:
         # get user input and strip space characters from input
         user_action = input("Type 'add', 'show', 'edit', 'complete', or 'exit': ")
@@ -9,9 +15,7 @@ def todo_app():
             # use list slicing - this will give us the part after 'add ', l
             todo = user_action[4:]
 
-            # context-manager with - as
-            with open('todos.txt', 'r') as file: # (second argument 'w' for write, 'r' read)
-                todo_list = file.readlines()
+            todo_list = get_todos()
 
             todo_list.append(todo.title() + "\n")
 
@@ -19,8 +23,8 @@ def todo_app():
                 file.writelines(todo_list)
 
         elif user_action.startswith('show'):
-            with open('todos.txt', 'r') as file:
-                todo_list = file.readlines()
+
+            todo_list = get_todos()
 
             # new_todos = [item.strip('\n') for item in todo_list]
 
@@ -36,8 +40,7 @@ def todo_app():
 
                 task_number = task_number - 1
 
-                with open('todos.txt', 'r') as file:
-                    todo_list = file.readlines()
+                todo_list = get_todos()
 
                 new_task = input("Edit your to-do task: ")
                 todo_list[task_number] = new_task.title() + '\n'
@@ -57,8 +60,7 @@ def todo_app():
                 task_number = int(user_action[9:])
 
 
-                with open('todos.txt', 'r') as file:
-                    todo_list = file.readlines()
+                todo_list = get_todos()
                 index = task_number - 1
                 todo_to_remove = todo_list[index].strip('\n')
                 todo_list.pop(index)
