@@ -1,18 +1,7 @@
+from modules import functions
+
+
 def todo_app():
-
-
-    def get_todos(filepath="todos.txt"):
-        """ Read a text file and return the list of to-do items. """
-        with open(filepath, 'r') as file_local:  # (second argument 'w' for write, 'r' read)
-            todos_local = file_local.readlines()
-        return todos_local
-
-
-    def write_todos(todo_parameter, filepath="todos.txt"):
-        """ Write a to-do items list in the text file. """
-        with open(filepath, 'w') as file_local:
-            file_local.writelines(todo_parameter)
-        #no return, we want the None value. This is just a procedure
 
 
     while True:
@@ -24,15 +13,15 @@ def todo_app():
             # use list slicing - this will give us the part after 'add ', l
             todo = user_action[4:]
 
-            todo_list = get_todos()
+            todo_list = functions.get_todos()
 
             todo_list.append(todo.title() + "\n")
 
-            write_todos(todo_list)
+            functions.write_todos(todo_list)
 
         elif user_action.startswith('show'):
 
-            todo_list = get_todos()
+            todo_list = functions.get_todos()
 
             # new_todos = [item.strip('\n') for item in todo_list]
 
@@ -48,12 +37,12 @@ def todo_app():
 
                 task_number = task_number - 1
 
-                todo_list = get_todos()
+                todo_list = functions.get_todos()
 
                 new_task = input("Edit your to-do task: ")
                 todo_list[task_number] = new_task.title() + '\n'
 
-                write_todos(todo_list)
+                functions.write_todos(todo_list)
 
             except ValueError:
                 print("Your command is not valid.")
@@ -67,12 +56,12 @@ def todo_app():
                 task_number = int(user_action[9:])
 
 
-                todo_list = get_todos()
+                todo_list = functions.get_todos()
                 index = task_number - 1
                 todo_to_remove = todo_list[index].strip('\n')
                 todo_list.pop(index)
 
-                write_todos(todo_list)
+                functions.write_todos(todo_list)
 
                 message = f"Todo '{todo_to_remove}' was completed and removed from the list"
                 print(message)
