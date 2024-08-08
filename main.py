@@ -1,8 +1,11 @@
-from modules import functions
+import functions
+import time
 
 
 def todo_app():
 
+    now = time.strftime("%b %d, %Y %H:%H:%S")
+    print("It is", now)
 
     while True:
         # get user input and strip space characters from input
